@@ -22,18 +22,17 @@
    cd backend
    npm install
    npm run build
-   node ./dist/index.js
    ``` 
 
 3. Запустите через PM2:
     ```bash
-    pm2 start .output/server/index.mjs --name "log-frontend"
+    pm2 start dist/index.js --name "log-backend"
     ```
 ### 1. Фронтенд (Frontend)
 Находится в директории `/frontend`.
 
 1. Создайте файл `.env` на основе `.env.example`
-  
+
 2. Установите зависимости и сборка:
    ```bash
    cd frontend
@@ -43,7 +42,7 @@
 
 3. Запустите через PM2:
     ```bash
-    pm2 start dist/index.js --name "log-backend"
+    pm2 start .output/server/index.mjs --name "log-frontend"
     ```
 
 ## 🌐 Конфигурация Nginx    
