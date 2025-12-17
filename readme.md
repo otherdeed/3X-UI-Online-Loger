@@ -48,7 +48,7 @@
 ## 🌐 Конфигурация Nginx    
 1. Настройка nginx
 
-    `sudo nano /etc/nginx/sites-available/default`
+    `sudo nano /etc/nginx/sites-available/log-monitor`
     ```bash
     server {
         listen 80;
@@ -56,14 +56,14 @@
 
         # API Auth
         location /api/ {
-            proxy_pass [http://127.0.0.1:3001/api/](http://127.0.0.1:3001/api/);
+            proxy_pass http://127.0.0.1:3001/api/;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
         }
 
         # WebSocket Logs
         location /ws-logs {
-            proxy_pass [http://127.0.0.1:3001](http://127.0.0.1:3001);
+            proxy_pass http://127.0.0.1:3001;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "Upgrade";
@@ -73,7 +73,7 @@
 
         # Nuxt UI Interface
         location /secret-monitor-777/ {
-            proxy_pass [http://127.0.0.1:3000/secret-monitor-777/](http://127.0.0.1:3000/secret-monitor-777/);
+            proxy_pass http://127.0.0.1:3000/secret-monitor-777/;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection 'upgrade';
@@ -81,7 +81,13 @@
         }
     }
     ```
-2. Перезагружаем nginx
+
+2. Создаем символическую ссылку
+    ```bash
+    sudo ln -s /etc/nginx/sites-available/log-monitor /etc/nginx/sites-enabled/
+    ```
+
+3. Перезагружаем nginx
 
     ```bash
     sudo nginx -t
