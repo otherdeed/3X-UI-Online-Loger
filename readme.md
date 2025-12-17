@@ -94,6 +94,26 @@
     sudo systemctl reload nginx
     ```
 
+
+## Настройка 3X-IU
+1. Заходим в 3X-UI / Настройки Xray / Логи
+2. Находим логи доступа и выбираем `./access.log`
+3. Сохраняем и перезапускаем Xray
+
+## Настройка Logrotate
+`sudo nano /etc/logrotate.d/3x-ui`
+```bash
+/usr/local/x-ui/access.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+}
+```
+
 ## 🚀 Использование
 1. Перейдите по адресу `http://your_ip/secret-monitor-777/auth`
 2. Введите установленный пароль.
